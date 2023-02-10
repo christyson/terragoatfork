@@ -2,7 +2,7 @@
 security_tests:
   image: ubuntu
   script:
-    - apt-get -y update; apt-get -y install curl
+    - apt-get -y update; apt-get -y install curl; apt-get install -yqq jq
     - export VERACODE_API_KEY_ID=$VERACODE_ID
     - export VERACODE_API_KEY_SECRET=$VERACODE_KEY
     - curl -fsS https://tools.veracode.com/veracode-cli/install | sh
