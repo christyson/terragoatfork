@@ -20,4 +20,4 @@ security_tests:
     - if [[$PASSFAIL == "false"]]
         then 
           echo "False"
-        fi
+        fi;
