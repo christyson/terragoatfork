@@ -13,7 +13,7 @@ security_tests:
       - veracode_terragoat.json
     expire_in: 1 week
   after_script:
-   # - export PASSFAIL=$(jq -r ".policy-passed" veracode_terragoat.json)
-    - cat veracode_terragoat.json | jq '."policy-passed"'
-   # - echo $PASSFAIL
-   # - sys.exit($PASSFAIL)
+    - export PASSFAIL=$(jq -r '."policy-passed"' veracode_terragoat.json)
+   # - cat veracode_terragoat.json | jq '."policy-passed"'
+    - echo $PASSFAIL
+    - sys.exit($PASSFAIL)
