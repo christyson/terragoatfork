@@ -17,7 +17,4 @@ security_tests:
    # - export PASSFAIL=$(jq -e -r '."policy-passed"' veracode_terragoat.json)
    # - cat veracode_terragoat.json | jq '."policy-passed"'
     - echo $PASSFAIL
-    - if [[ $PASSFAIL == "false" ]];
-        then 
-          echo "False"
-        fi
+    - if [ $PASSFAIL == "false" ]; then echo exists; fi
