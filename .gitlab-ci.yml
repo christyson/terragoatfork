@@ -6,4 +6,8 @@ security_tests:
     - export VERACODE_API_KEY_ID=$VERACODE_ID
     - export VERACODE_API_KEY_SECRET=$VERACODE_KEY
     - curl -fsS https://tools.veracode.com/veracode-cli/install | sh
-    - ./veracode scan --type directory --source ${CI_PROJECT_DIR} --output veracode.json
+    - ./veracode scan --type directory --source ${CI_PROJECT_DIR} --output veracode_terragoat.json
+  artifacts:
+    paths:
+      - veracode_terragoat.json
+    expire_in: 1 week
