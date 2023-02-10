@@ -15,5 +15,4 @@ security_tests:
   after_script:
     - export PASSFAIL=$(jq -r '."policy-passed"' veracode_terragoat.json)
    # - cat veracode_terragoat.json | jq '."policy-passed"'
-    - echo $PASSFAIL
-    - sys.exit($PASSFAIL)
+    - if [$PASSFAIL == "false"]; then exit 1; fi
