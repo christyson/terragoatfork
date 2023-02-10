@@ -1,0 +1,8 @@
+
+security_tests:
+  image: ubuntu
+  script:
+    - curl -fsS https://tools.veracode.com/veracode-cli/install | sh
+    - export VERACODE_API_ID=$(VERACODE_ID)
+    - export VERACODE_API_KEY=$(VERACODE_KEY)
+    - ./veracode scan --type image --source https://github.com/bridgecrewio/terragoat
