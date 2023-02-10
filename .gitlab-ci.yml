@@ -2,6 +2,7 @@
 security_tests:
   image: ubuntu
   script:
+    - apt-get -y update; apt-get -y install curl
     - curl -fsS https://tools.veracode.com/veracode-cli/install | sh
     - export VERACODE_API_ID=$(VERACODE_ID)
     - export VERACODE_API_KEY=$(VERACODE_KEY)
