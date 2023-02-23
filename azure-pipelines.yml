@@ -19,7 +19,7 @@ steps:
       apt-get -y update; apt-get -y install curl; apt-get install -yqq jq
       export VERACODE_API_KEY_ID=$(VERACODE_API_KEY_ID)
       export VERACODE_API_KEY_SECRET=$(VERACODE_API_KEY_SECRET)
-      curl -fsS https://tools.veracode.com/veracode-cli/install | sh /dev/null 2>&1
+      curl -fsS https://tools.veracode.com/veracode-cli/install | sh > ./install.log 2>&1
       echo Configure credentials
       ./veracode configure
       echo Scan repo
