@@ -19,8 +19,7 @@ steps:
       apt-get -y update; apt-get -y install curl; apt-get install -yqq jq
       export VERACODE_API_KEY_ID=$(VERACODE_API_KEY_ID)
       export VERACODE_API_KEY_SECRET=$(VERACODE_API_KEY_SECRET)
-      curl -fsS https://tools.veracode.com/veracode-cli/install | sh
-      ./veracode configure
+      curl -fsS https://tools.veracode.com/veracode-cli/install | sh /dev/null 2>&1
       ./veracode scan --source https://github.com/christyson/terragoatfork --type repo --output ./veracode_terragoat.json
       export PASSFAIL=$(jq -r '."policy-passed"' ./veracode_terragoat.json)
       echo $PASSFAIL
