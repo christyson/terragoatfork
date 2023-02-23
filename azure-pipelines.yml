@@ -26,3 +26,12 @@ steps:
 - publish: $(System.DefaultWorkingDirectory)/veracode_terragoat.json
   artifact: pipeline
   displayName: 'Publish the baseline file'
+
+- task: Bash@3
+  displayName: 'Check for error'
+  inputs:
+    targetType: inline
+    script: |
+      export PASSFAIL=$(jq -r '."policy-passed"' ./veracode_terragoat.json)
+      echo $PASSFAIL
+      if [ $PASSFAIL == "false" ]; then exit 1; fi
