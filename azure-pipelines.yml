@@ -10,16 +10,20 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- script: |
-    apt-get -y update; apt-get -y install curl; apt-get install -yqq jq
-    export VERACODE_API_KEY_ID=$(VERACODE_ID)
-    export VERACODE_API_KEY_SECRET=$(VERACODE_KEY)
-    curl -fsS https://tools.veracode.com/veracode-cli/install | sh
-    ./veracode scan --type directory --source ${CI_PROJECT_DIR} --output veracode_terragoat.json
-    export PASSFAIL=$(jq -r '."policy-passed"' veracode_terragoat.json)
-    echo $PASSFAIL
-    if [ $PASSFAIL == "false" ]; then exit 1; fi
-  displayName: 'Run a container scan'
+- task: Bash@3
+  displayName: 'Veracode Container Scan'
+  
+  inputs:
+    targetType: inline
+    script: |
+      apt-get -y update; apt-get -y install curl; apt-get install -yqq jq
+      export VERACODE_API_KEY_ID=$(VERACODE_ID)
+      export VERACODE_API_KEY_SECRET=$(VERACODE_KEY)
+      curl -fsS https://tools.veracode.com/veracode-cli/install | sh
+      ./veracode scan --type directory --source https://github.com/christyson/terragoatfork --output ./veracode_terragoat.json
+      export PASSFAIL=$(jq -r '."policy-passed"' ./veracode_terragoat.json)
+      echo $PASSFAIL
+      if [ $PASSFAIL == "false" ]; then exit 1; fi
 
 - publish: $(System.DefaultWorkingDirectory)/veracode_terragoat.json
   artifact: pipeline
