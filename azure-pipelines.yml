@@ -19,11 +19,8 @@ steps:
     export PASSFAIL=$(jq -r '."policy-passed"' veracode_terragoat.json)
     echo $PASSFAIL
     if [ $PASSFAIL == "false" ]; then exit 1; fi
-      
-  artifacts:
-    when: always
-    paths:
-      - veracode_terragoat.json
-    expire_in: 1 week
+  displayName: 'Run a container scan'
 
-  displayName: 'Run a multi-line script'
+- publish: $(System.DefaultWorkingDirectory)/veracode_terragoat.json
+  artifact: pipeline
+  displayName: 'Publish the baseline file'
