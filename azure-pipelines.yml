@@ -19,8 +19,10 @@ steps:
       apt-get -y update; apt-get -y install curl; apt-get install -yqq jq
       export VERACODE_API_KEY_ID=$(VERACODE_API_KEY_ID)
       export VERACODE_API_KEY_SECRET=$(VERACODE_API_KEY_SECRET)
-      curl -fsS https://tools.veracode.com/veracode-cli/install | sh
+      curl -fsS https://tools.veracode.com/veracode-cli/install | sh /dev/null 2>&1
+      echo Configure credentials
       ./veracode configure
+      echo Scan repo
       ./veracode scan --source https://github.com/christyson/terragoatfork --type repo --output $(System.DefaultWorkingDirectory)/veracode_terragoat.json
 
 - publish: $(System.DefaultWorkingDirectory)/veracode_terragoat.json
@@ -33,5 +35,5 @@ steps:
     targetType: inline
     script: |
       export PASSFAIL=$(jq -r '."policy-passed"' ./veracode_terragoat.json)
-      echo $PASSFAIL
+      echo Policy passed = $PASSFAIL
       if [ $PASSFAIL == "false" ]; then exit 1; fi
