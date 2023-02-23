@@ -18,6 +18,7 @@ steps:
     script: |
       apt-get -y update; apt-get -y install curl; apt-get install -yqq jq
       curl -fsS https://tools.veracode.com/veracode-cli/install | sh
+       ./veracode configure
       ./veracode scan --source https://github.com/christyson/terragoatfork --type repo --output ./veracode_terragoat.json
       export PASSFAIL=$(jq -r '."policy-passed"' ./veracode_terragoat.json)
       echo $PASSFAIL
