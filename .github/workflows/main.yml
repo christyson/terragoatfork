@@ -1,3 +1,9 @@
+name: Veeracode Container IaC Secrets Scan
+on:
+  push:
+    branches:
+      - master
+
 Veracode-container_iac_secrets-scan:
     runs-on: ubuntu-latest
     name: Verracode Container/IaC/Secrets scan
