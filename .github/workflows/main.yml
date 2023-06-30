@@ -4,7 +4,9 @@ on:
     branches:
       - master
 
-Veracode-container_iac_secrets-scan:
+jobs:
+
+   Veracode-container_iac_secrets-scan:
     runs-on: ubuntu-latest
     name: Verracode Container/IaC/Secrets scan
 
